@@ -1,0 +1,30 @@
+<launch>
+	<!-- multiplexer args -->
+	<arg name="planner_status_topic" default="/planner_status"/>
+	<arg name="select_planner_service" default="/select_planner"/>
+	<arg name="enabled_service" default="/planner_enabled"/>
+	<arg name="precision_service" default="/planner_precision"/>
+	<arg name="default_planner" default="planner1"/>
+	<arg name="default_planner_precision" default="0.25"/>
+
+	<!-- planner args -->
+	<arg name="planner_names" default="[planner1]"/>
+	<arg name="planner_status_topics" default="[/planner1_status)]"/>
+	<arg name="enabled_services" default="[/planner1_enabled]"/>
+	<arg name="precision_services" default="[/planner1_precision]"/>
+
+	<node pkg="planner_multiplexer" name="planner_multiplexer"
+	type="multiplexer.py" output="screen" respawn="false">
+		<param name="planner_status_topic" value="$(arg planner_status_topic)"/>
+		<param name="select_planner_service" value="$(arg select_planner_service)"/>
+		<param name="enabled_service" value="$(arg enabled_service)"/>
+		<param name="precision_service" value="$(arg precision_service)"/>
+		<param name="default_planner" value="$(arg default_planner)"/>
+		<param name="default_planner_precision" value="$(arg default_planner_precision)"/>
+
+		<rosparam param="planner_names" subst_value="True">$(arg planner_names)</rosparam>
+		<rosparam param="planner_status_topics" subst_value="True">$(arg planner_status_topics)</rosparam>
+		<rosparam param="enabled_services" subst_value="True">$(arg enabled_services)</rosparam>
+		<rosparam param="precision_services" subst_value="True">$(arg precision_services)</rosparam>
+	</node>
+</launch>

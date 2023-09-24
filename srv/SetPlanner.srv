@@ -1,0 +1,6 @@
+# Request - name of planner to use
+string planner
+---
+# Response - T/F
+bool success
+string message
